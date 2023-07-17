@@ -1,0 +1,26 @@
+{
+  "name": "mern-auth",
+  "version": "1.0.0",
+  "description": "MERN auth",
+  "main": "index.js",
+  "engines": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "vercel-build": "echo hello"
+  },
+  "author": "Krish Maharjan",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.3.1",
+    "nodemailer": "^6.9.3"
+  }
+}

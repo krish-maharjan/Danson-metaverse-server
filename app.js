@@ -10,6 +10,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.use((req, res, next) => {
+    console.log(req.path, req.method)
+    next()
+})
+
 // setting auth api api
 app.use("/api", userRouter);
 
@@ -21,4 +26,4 @@ app.get("/", (req, res) => {
 
 
 // starting server
-app.listen(5000, () => console.log('Server listening on port 5000'));
+app.listen(6000, () => console.log('Server listening on port 6000'));

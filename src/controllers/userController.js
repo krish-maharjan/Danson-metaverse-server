@@ -40,7 +40,7 @@ const registerRequest = async (req, res) => {
         pass: process.env.CODE
       },
     });
-    
+
 
     // Compose the email message
     const mailOptions = {
@@ -177,7 +177,7 @@ const forgot = async (req, res) => {
     user.resetPasswordCodeExpires = Date.now() + 600000; // Code expiration time (10 minutes)
     await user.save();
 
-    
+
 
     // Create a nodemailer transporter for sending emails
     const transporter = nodemailer.createTransport({
@@ -216,7 +216,7 @@ const forgot = async (req, res) => {
 
 const forgotreset = async (req, res) => {
   const { email, verificationCode, newPassword } = req.body;
-  console.log( email, verificationCode, newPassword )
+  console.log(email, verificationCode, newPassword)
   console.log('forgot reset request received')
 
   try {

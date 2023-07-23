@@ -57,7 +57,7 @@ const registerRequest = async (req, res) => {
         return res.status(500).json({ message: 'Failed to send verification code' });
       }
       console.log('Verification code sent:', info.response);
-      res.json({ message: 'Verification code sent' });
+      res.status(200).json({ message: 'Verification code sent suscessfully!!' });
     });
   } catch (error) {
     console.error(error);
@@ -121,7 +121,7 @@ const login = async (req, res) => {
   const token = jwt.sign({ userId: user._id }, 'mysecretkey');
 
   console.log('Logged in successfully');
-  res.send({ token });
+  res.status(200).send({ token });
 };
 
 
@@ -151,7 +151,7 @@ const passwordreset = async (req, res) => {
   await user.save();
 
   console.log('Password reset successfully')
-  res.send({ message: 'Password reset successfully' });
+  res.status(200).send({ message: 'Password reset successfully' });
 };
 
 const nodemailer = require('nodemailer');
@@ -195,7 +195,7 @@ const forgot = async (req, res) => {
     const mailOptions = {
       from: 'your-email',
       to: email,
-      subject: 'Password Reset Verification Code',
+      subject: 'Password Reset Verification Code 10 minutes',
       text: `Please use the following verification code to reset your password: ${verificationCode}`
     };
 

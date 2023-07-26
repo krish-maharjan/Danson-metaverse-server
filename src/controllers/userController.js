@@ -233,7 +233,8 @@ const forgotreset = async (req, res) => {
     }
 
     // Update the user's password
-    user.password = newPassword;
+    user.password = await bcrypt.hash(newPassword, 10),
+    verificationCode;
     user.resetPasswordCode = undefined;
     user.resetPasswordCodeExpires = undefined;
     await user.save();

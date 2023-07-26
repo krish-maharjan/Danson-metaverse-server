@@ -206,7 +206,7 @@ const forgot = async (req, res) => {
         return res.status(500).json({ message: 'Failed to send password reset verification code' });
       }
       console.log('Password reset verification code sent:', info.response);
-      res.json({ message: 'Password reset verification code sent' });
+      res.status(200).json({ message: 'Password reset verification code sent' });
     });
   } catch (error) {
     console.error(error);

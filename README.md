@@ -1,5 +1,3 @@
-# Danson-metaverse-server
-
 # ExpressJS User Authentication API Documentation
 
 This documentation provides a comprehensive guide on how to integrate and use the User Authentication API. The API is built using Node.js and Express.js to handle user registration, verification, login, password reset, and other user-related actions. The API supports both email and password-based authentication as well as social media single sign-on (SSO) using Google and Facebook.
@@ -110,5 +108,4 @@ To integrate the User Authentication API into your frontend application or test 
 
 
 ## Conclusion
-
 This User Authentication API provides essential functionalities for user registration, email verification, login, and password management. Happy coding!

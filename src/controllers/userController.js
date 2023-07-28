@@ -100,29 +100,28 @@ const login = async (req, res) => {
   // Check if user exists
   const user = await User.findOne({ email });
   if (!user) {
-    return res.status(400).send({ message: 'Invalid email or password' });
+    return res.status(401).send({ message: '401: Invalid email or password' });
   }
 
-  // console.log('isVerified')
-  // console.log(user.isVerified)
   // Check if user is verified
   if (user.isVerified === false) {
-    console.log('user is not verified')
-    return res.status(400).send({ message: 'Email not verified' });
+    console.log('user is not verified');
+    return res.status(554).send({ message: '554 Message rejected: Email address is not verified.', email: user.email, username: user.username });
   }
 
   // Check if password is correct
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
   if (!isPasswordCorrect) {
-    return res.status(400).send({ message: 'Invalid email or password' });
+    return res.status(401).send({ message: '401: Invalid email or password' });
   }
 
   // Generate JWT token
   const token = jwt.sign({ userId: user._id }, 'mysecretkey');
 
   console.log('Logged in successfully');
-  res.status(200).send({ token });
+  res.status(200).send({ token, email: user.email, username: user.username });
 };
+
 
 
 const passwordreset = async (req, res) => {
@@ -234,7 +233,7 @@ const forgotreset = async (req, res) => {
 
     // Update the user's password
     user.password = await bcrypt.hash(newPassword, 10),
-    verificationCode;
+      verificationCode;
     user.resetPasswordCode = undefined;
     user.resetPasswordCodeExpires = undefined;
     await user.save();

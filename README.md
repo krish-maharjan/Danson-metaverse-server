@@ -108,5 +108,4 @@ To integrate the User Authentication API into your frontend application or test 
 
 
 ## Conclusion
-
 This User Authentication API provides essential functionalities for user registration, email verification, login, and password management. Happy coding!

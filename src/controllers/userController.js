@@ -93,6 +93,86 @@ const registerVerification = async (req, res) => {
   }
 };
 
+
+// Route for sending the verification code
+const emailVerificationRequest = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Check if the user exists in the database
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: '404: User not found' });
+    }
+
+    // Generate a verification code
+    const verificationCode = crypto.randomBytes(3).toString('hex');
+
+    // Save the verification code in the user's document in the database
+    user.verificationCode = verificationCode;
+    await user.save();
+
+    // Create a nodemailer transporter for sending emails
+    const transporter = nodemailer.createTransport({
+      // Configure your email provider here
+      service: 'gmail',
+      auth: {
+        user: process.env.SMTP,
+        pass: process.env.CODE,
+      },
+    });
+
+    // Compose the email message
+    const mailOptions = {
+      from: 'your-email',
+      to: email,
+      subject: 'Account Verification',
+      text: `Your verification code is: ${verificationCode}`,
+    };
+
+    // Send the verification code via email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        return res.status(500).json({ message: '500: Failed to send verification code' });
+      }
+      console.log('Verification code sent:', info.response);
+      res.status(200).json({ message: '200: Verification code sent successfully' });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: '500: Internal server error' });
+  }
+};
+
+
+const verifyEmail = async (req, res) => {
+  const { email, verificationCode } = req.body;
+
+  try {
+    // Check if the user exists in the database
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: '404: User not found' });
+    }
+
+    // Check if the entered verification code matches the one stored in the database
+    if (user.verificationCode !== verificationCode) {
+      return res.status(400).json({ message: '400: Invalid verification code' });
+    }
+
+    // Mark the user as verified
+    user.isVerified = true;
+    await user.save();
+
+    res.status(200).json({ message: '200: Email verification successful' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: '500: Internal server error' });
+  }
+};
+
+
 const login = async (req, res) => {
   console.log('Login request received');
   const { email, password } = req.body;
@@ -123,7 +203,6 @@ const login = async (req, res) => {
 };
 
 
-
 const passwordreset = async (req, res) => {
   console.log('Password-Reset request received')
 
@@ -132,7 +211,7 @@ const passwordreset = async (req, res) => {
   // Check if user exists
   const user = await User.findOne({ email });
   if (!user) {
-    return res.status(400).send({ message: 'User not found' });
+    return res.status(400).send({ message: '400: User not found' });
   }
 
   // Check if old password is correct

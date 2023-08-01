@@ -2,7 +2,7 @@ const express = require("express");
 const userRouter = express.Router();
 
 // controllers
-const { registerRequest, registerVerification, login, passwordreset, forgot, forgotreset } = require("../controllers/userController");
+const { registerRequest, registerVerification, login, passwordreset, forgot, forgotreset,verifyEmail, emailVerificationRequest } = require("../controllers/userController");
 const { registerUserUsingGoogle, registerUserUsingFacebook, getGoogleUserData, getFacebookUserData } = require("../controllers/ssoUserController");
 
 // middlewares
@@ -11,6 +11,8 @@ const userAuth = require("../middlewares/userAuth")
 
 userRouter.post("/register-request", registerRequest);
 userRouter.post("/register-verification", registerVerification);
+userRouter.post("/verify-email-request", emailVerificationRequest);
+userRouter.post("/verify-email", verifyEmail);
 userRouter.post("/login", login);
 userRouter.post("/password-reset", userAuth, passwordreset);
 userRouter.post("/password-forgot", forgot);

@@ -327,4 +327,4 @@ const forgotreset = async (req, res) => {
 
 
 
-module.exports = { registerRequest, registerVerification, login, passwordreset, forgot, forgotreset };
+module.exports = { registerRequest, registerVerification, login, passwordreset, forgot, forgotreset, verifyEmail, emailVerificationRequest };

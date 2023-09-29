@@ -1,6 +1,6 @@
 # ExpressJS User Authentication API Documentation
 
-This documentation provides a comprehensive guide on how to integrate and use the User Authentication API. The API is built using Node.js and Express.js to handle user registration, verification, login, password reset, and other user-related actions. The API supports both email and password-based authentication as well as social media single sign-on (SSO) using Google and Facebook.
+A comprehensive guide on how to integrate and use the User Authentication API. The API is built using Node.js and Express.js to handle user registration, verification, login, password reset, and other user-related actions. The API supports both email and password-based authentication as well as social media single sign-on (SSO) using Google and Facebook.
 
 ## API Endpoints
 
